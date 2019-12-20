@@ -56,6 +56,14 @@ import java.util.regex.Pattern;
  * @see com.alibaba.dubbo.common.extension.Adaptive
  * @see com.alibaba.dubbo.common.extension.Activate
  */
+
+/**
+ *
+ * @param <T>
+ *
+ * 这个是dubbo SPI实现的机制 DUBBO-SPI所需的配置文件放置在META-INF/dubbo路径下
+ * 通过ExtensionLoader，可以加载指定的实现类
+ */
 public class ExtensionLoader<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(ExtensionLoader.class);

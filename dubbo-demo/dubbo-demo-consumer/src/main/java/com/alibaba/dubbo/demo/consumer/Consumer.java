@@ -31,7 +31,7 @@ public class Consumer {
 
         while (true) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 String hello = demoService.sayHello("world"); // call remote method
                 System.out.println(hello); // get result
 
@@ -42,3 +42,4 @@ public class Consumer {
 
     }
 }
+

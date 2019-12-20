@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @see com.alibaba.dubbo.rpc.filter.ActiveLimitFilter
  * @see com.alibaba.dubbo.rpc.filter.ExecuteLimitFilter
- * @see com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance
+ * @see com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance 最少活跃数
  */
 public class RpcStatus {
 

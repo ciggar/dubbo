@@ -18,6 +18,13 @@ package com.alibaba.dubbo.rpc.cluster;
 
 import com.alibaba.dubbo.common.extension.SPI;
 
+/**
+ *
+ * @param <T>
+ *     用于分组聚合
+ *     按组合并返回结果，比如菜单服务，接口一样，但有多种实现，用group区分，
+ *     现在消费方需从每种group中调用一次返回结果，合并结果返回，这样就可以实现聚合菜单项。
+ */
 @SPI
 public interface Merger<T> {
 

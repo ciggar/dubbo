@@ -33,6 +33,18 @@ import java.util.List;
  *
  * @see com.alibaba.dubbo.rpc.cluster.Cluster#join(Directory)
  */
+
+/**
+ *  这个是dubbo负载均衡接口
+ *
+ *  负载均衡策略
+ *
+ *  1，ConsistentHashLoadBalance 一致性哈希
+ *  2，LeastActiveLoadBalance 最少活跃数
+ *  3，RandomLoadBalance 随机
+ *  4，RoundRobinLoadBalance 轮询
+ *
+ */
 @SPI(RandomLoadBalance.NAME)
 public interface LoadBalance {
 
@@ -44,6 +56,7 @@ public interface LoadBalance {
      * @param invocation invocation.
      * @return selected invoker.
      */
+
     @Adaptive("loadbalance")
     <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) throws RpcException;
 
