@@ -30,6 +30,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Because {@link ApplicationShutdownHooks} use {@link java.util.IdentityHashMap}
  * to store the shutdown hooks.
  */
+
+/**
+ * dubbo 如何优雅的关闭服务
+ *
+ */
 public class DubboShutdownHook extends Thread {
 
     private static final Logger logger = LoggerFactory.getLogger(DubboShutdownHook.class);
@@ -60,6 +65,10 @@ public class DubboShutdownHook extends Thread {
 
     /**
      * Destroy all the resources, including registries and protocols.
+     */
+    /**
+     * 这个是关闭所有的服务
+     *
      */
     public void destroyAll() {
         if (!destroyed.compareAndSet(false, true)) {

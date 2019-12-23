@@ -34,6 +34,11 @@ import java.util.Arrays;
  * @see com.alibaba.dubbo.config.ProtocolConfig
  * @see com.alibaba.dubbo.config.ServiceConfig
  */
+
+/**
+ * 服务提供者配置
+ * 2019-12-23
+ */
 public class ProviderConfig extends AbstractServiceConfig {
 
     private static final long serialVersionUID = 6913423882496634749L;

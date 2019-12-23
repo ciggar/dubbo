@@ -30,19 +30,30 @@ import java.util.List;
  *
  * @export
  */
+
+/**
+ * @Auther ciggar
+ * @Date 2019-12-20
+ *
+ * dubbo方法配置
+ *
+ */
 public class MethodConfig extends AbstractMethodConfig {
 
     private static final long serialVersionUID = 884908855422675941L;
 
+    // 方法名字
     // method name
     private String name;
 
     // stat
     private Integer stat;
 
+    // 方法重试次数
     // whether to retry
     private Boolean retry;
 
+    //
     // if it's reliable
     private Boolean reliable;
 

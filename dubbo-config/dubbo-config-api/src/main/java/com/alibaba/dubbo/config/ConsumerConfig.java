@@ -21,25 +21,39 @@ package com.alibaba.dubbo.config;
  *
  * @export
  */
+
+/**
+ * @Auther ciggar
+ * @Date 2019-12-20
+ *
+ * 这个是服务端的配置
+ *
+ */
 public class ConsumerConfig extends AbstractReferenceConfig {
 
     private static final long serialVersionUID = 2827274711143680600L;
 
+    //是否是默认的
     // is default or not
     private Boolean isDefault;
 
+    // 客户端网络传输所用的框架，例如 netty、mina
     // networking framework client uses: netty, mina, etc.
     private String client;
 
+    //线程池的类型
     // consumer thread pool type: cached, fixed, limit, eager
     private String threadpool;
 
+    //线程池核心线程数
     // consumer threadpool core thread size
     private Integer corethreads;
 
+    //线程池线程数
     // consumer threadpool thread size
     private Integer threads;
 
+    //消费者线程池队列长度
     // consumer threadpool queue size
     private Integer queues;
 

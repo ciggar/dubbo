@@ -21,6 +21,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 /**
  * Parameter
@@ -30,16 +31,35 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface Parameter {
 
+
+    //键
     String key() default "";
 
+    // 是否必填
     boolean required() default false;
 
+    // 是否忽略
     boolean excluded() default false;
 
+    // 是否转义
     boolean escaped() default false;
 
+    // 是否为属性
     boolean attribute() default false;
 
+    /**
+     * 是否拼接默认属性
+     *
+     * 参见{@link com.alibaba.dubbo.config.AbstractReferenceConfig#appendParameters(Map, Object)} 方法
+     *
+     * 举个例子：
+     *  {@link com.alibaba.dubbo.config.AbstractServiceConfig}
+     *
+     *  我们知道 ProviderConfig 和 ServiceConfig 继承 AbstractServiceConfig 类，那么 `filter` , `listener` 对应的相同的键。
+     */
     boolean append() default false;
+
+
+
 
 }

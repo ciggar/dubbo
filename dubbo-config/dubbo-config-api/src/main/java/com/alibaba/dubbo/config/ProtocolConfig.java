@@ -35,6 +35,11 @@ import java.util.Map;
  *
  * @export
  */
+
+/**
+ * 协议配置，用于配置提供服务的协议信息，协议由提供者指定，消费者被动接受
+ *
+ */
 public class ProtocolConfig extends AbstractConfig {
 
     private static final long serialVersionUID = 6913423882496634749L;

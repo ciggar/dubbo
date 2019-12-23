@@ -67,6 +67,13 @@ import static com.alibaba.dubbo.common.utils.NetUtils.isInvalidPort;
  *
  * @export
  */
+
+/**
+ * @Auther ciggar
+ * @Date 2019-12-23
+ *
+ * 这个是服务端配置，暴露服务用的
+ */
 public class ServiceConfig<T> extends AbstractServiceConfig {
 
     private static final long serialVersionUID = 3033787999037024738L;

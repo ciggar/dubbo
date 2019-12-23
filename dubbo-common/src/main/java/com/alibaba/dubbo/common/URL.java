@@ -68,24 +68,42 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see java.net.URL
  * @see java.net.URI
  */
+
+/**
+ * @Auther ciggar
+ * @Date 2019-12-23
+ *
+ * 这个类是Url的配置类
+ *
+ *  一个典型的Service注册到注册中心中的格式如下
+ *  dubbo://192.168.3.17:20880/com.alibaba.dubbo.demo.DemoService?anyhost=true&application=demo-provider&default.delay=-1&default.retries=0&default.service.filter=demoFilter&delay=-1&dubbo=2.0.0&generic=false&interface=com.alibaba.dubbo.demo.DemoService&methods=sayHello&pid=19031&side=provider&timestamp=1519651641799
+ *
+ */
 public final class URL implements Serializable {
 
     private static final long serialVersionUID = -1985165475234910535L;
 
+    // 协议名
     private final String protocol;
 
+    // 用户名
     private final String username;
 
+    // 密码
     private final String password;
 
+    // 主机地址
     // by default, host to registry
     private final String host;
 
+    // 端口
     // by default, port to registry
     private final int port;
 
+    // 路径（服务名）
     private final String path;
 
+    // 参数集合
     private final Map<String, String> parameters;
 
     // ==== cache ====
@@ -1154,6 +1172,7 @@ public final class URL implements Serializable {
         return buildString(appendUser, appendParameter, false, false, parameters);
     }
 
+    // 这个是生成URL的方法
     private String buildString(boolean appendUser, boolean appendParameter, boolean useIP, boolean useService, String... parameters) {
         StringBuilder buf = new StringBuilder();
         if (protocol != null && protocol.length() > 0) {

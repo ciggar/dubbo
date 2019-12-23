@@ -40,10 +40,32 @@ import java.util.regex.Pattern;
  *
  * @export
  */
+
+/**
+ *
+ * auther:ciggar
+ * time: 2019-11-20
+ *
+ * 这个是dubbo配置的根类，是一个抽象类
+ * 所有的配置类都集成该类 除了ArgumentConfig
+ *
+ * AbstractConfig 主要是提供了配置解析与校验相关的工具方法
+ *
+ *
+ * 说明：
+ *  方法级别优先，接口级次之，全局配置再次之
+ *  如果级别一样，则消费者优先，提供者次之
+ *
+ *  建议由服务提供者设置超时，因为服务提供者更加清楚一个方法执行需要多久。
+ *  如果一个消费者同时引用了多个服务，就不需要关系每个服务的超时设置。
+ *  理论上，ReferenceConfig的非服务标识的配置，都可以再ConsumerConfig、ServiceConfig和ProviderConfig中进行默认的配置
+ */
 public abstract class AbstractConfig implements Serializable {
 
     protected static final Logger logger = LoggerFactory.getLogger(AbstractConfig.class);
     private static final long serialVersionUID = 4267533505537413570L;
+
+    //----------------属性值的格式校验，方法在本类的#checkXXX   start---------------------
     private static final int MAX_LENGTH = 200;
 
     private static final int MAX_PATH_LENGTH = 200;
@@ -59,8 +81,24 @@ public abstract class AbstractConfig implements Serializable {
     private static final Pattern PATTERN_NAME_HAS_SYMBOL = Pattern.compile("[:*,\\s/\\-._0-9a-zA-Z]+");
 
     private static final Pattern PATTERN_KEY = Pattern.compile("[*,\\-._0-9a-zA-Z]+");
+    //-------------------属性值格式校验end --------------------------------------------
+
+
+    /**
+     * 这个是新老版本properties值的映射
+     *
+     * key: 新版本properties值
+     * value: 老版本properties值
+     */
     private static final Map<String, String> legacyProperties = new HashMap<String, String>();
+
+    /**
+     * 配置类名字的后缀 例如：ServiceConfig后缀为Config；ServiceBean后缀为Bean
+     *
+     */
     private static final String[] SUFFIXES = new String[]{"Config", "Bean"};
+
+
 
     static {
         legacyProperties.put("dubbo.protocol.name", "dubbo.service.protocol");
@@ -73,10 +111,16 @@ public abstract class AbstractConfig implements Serializable {
         legacyProperties.put("dubbo.service.url", "dubbo.service.address");
 
         // this is only for compatibility
+        //此处仅仅是为了兼容
         Runtime.getRuntime().addShutdownHook(DubboShutdownHook.getDubboShutdownHook());
     }
 
+    /**
+     * 标记一个配置对象，用于对象之间的引用
+     */
     protected String id;
+
+
 
     private static String convertLegacyValue(String key, String value) {
         if (value != null && value.length() > 0) {
@@ -172,6 +216,13 @@ public abstract class AbstractConfig implements Serializable {
         appendParameters(parameters, config, null);
     }
 
+    /**
+     * 将配置对象的属性，添加到参数集合
+     *
+     * @param parameters
+     * @param config
+     * @param prefix
+     */
     @SuppressWarnings("unchecked")
     protected static void appendParameters(Map<String, String> parameters, Object config, String prefix) {
         if (config == null) {

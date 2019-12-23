@@ -26,38 +26,56 @@ import java.util.Map;
  *
  * @export
  */
+
+/**
+ * @Auther 服务注册配置
+ * @Date 2019-12-20
+ *
+ * 这个是服务注册配置
+ */
 public class RegistryConfig extends AbstractConfig {
 
     public static final String NO_AVAILABLE = "N/A";
     private static final long serialVersionUID = 5508512956753757169L;
+    //注册中心地址
     // register center address
     private String address;
 
+    //注册中心名字
     // username to login register center
     private String username;
 
+    // 注册中心密码
     // password to login register center
     private String password;
 
+    //注册中心端口号
     // default port for register center
     private Integer port;
 
+    // 注册中心协议
     // protocol for register center
     private String protocol;
 
     // client impl
     private String transporter;
 
+    // 注册中心协议
     private String server;
 
+    // 注册中心客户端
     private String client;
 
+    // 注册中心集群配置
     private String cluster;
 
+    // 注册中心组名
     private String group;
 
+    // 注册中心版本号
     private String version;
 
+    //连接注册中心超时配置
     // request timeout in milliseconds for register center
     private Integer timeout;
 
