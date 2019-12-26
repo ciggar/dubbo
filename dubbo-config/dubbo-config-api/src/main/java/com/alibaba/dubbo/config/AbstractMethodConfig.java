@@ -25,6 +25,10 @@ import java.util.Map;
 /**
  * AbstractMethodConfig
  *
+ * 方法级配置的抽象类
+ *
+ * http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-method.html
+ *
  * @export
  */
 public abstract class AbstractMethodConfig extends AbstractConfig {
@@ -38,12 +42,15 @@ public abstract class AbstractMethodConfig extends AbstractConfig {
     protected Integer retries;
 
     // max concurrent invocations
+    //每服务消费者最大并发调用限制
     protected Integer actives;
 
     // load balance
+    //负载均衡策略，可选值：random,roundrobin,leastactive，分别表示：随机，轮询，最少活跃调用
     protected String loadbalance;
 
     // whether to async
+    //是否异步执行，不可靠异步，只是忽略返回值，不阻塞执行线程
     protected Boolean async;
 
     // whether to ack async-sent
@@ -56,9 +63,11 @@ public abstract class AbstractMethodConfig extends AbstractConfig {
     protected String merger;
 
     // cache
+    //以调用参数为key，缓存返回结果，可选：lru, threadlocal, jcache等
     protected String cache;
 
     // validation
+    //是否启用JSR303标准注解验证，如果启用，将对方法参数上的注解进行校验
     protected String validation;
 
     // customized parameters

@@ -59,6 +59,8 @@ import static com.alibaba.dubbo.common.utils.NetUtils.isInvalidLocalHost;
  * ReferenceConfig
  *
  * @export
+ *
+ * @See http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-consumer.html
  */
 public class ReferenceConfig<T> extends AbstractReferenceConfig {
 

@@ -73,6 +73,8 @@ import static com.alibaba.dubbo.common.utils.NetUtils.isInvalidPort;
  * @Date 2019-12-23
  *
  * 这个是服务端配置，暴露服务用的
+ *
+ * http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-service.html
  */
 public class ServiceConfig<T> extends AbstractServiceConfig {
 
@@ -200,7 +202,16 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         return unexported;
     }
 
+    //这个是dubbo暴露服务的方法
+
+    /**
+     * 进一步初始化 ServiceConfig 对象。
+     * 校验 Se的rviceConfig 对象配置项。
+     * 使用 ServiceConfig 对象，生成 Dubbo URL 对象数组。
+     * 使用 Dubbo URL 对象，暴露服务。
+     */
     public synchronized void export() {
+        // 当export或者delay未配置，则从ProviderConfig对象读取
         if (provider != null) {
             if (export == null) {
                 export = provider.getExport();
@@ -209,10 +220,12 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 delay = provider.getDelay();
             }
         }
+        // export 是false的时候，表示不暴露服务
         if (export != null && !export) {
             return;
         }
 
+        // 延迟暴露或直接暴露
         if (delay != null && delay > 0) {
             delayExportExecutor.schedule(new Runnable() {
                 @Override
@@ -225,6 +238,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         }
     }
 
+    // 真正暴露服务的方法
     protected synchronized void doExport() {
         if (unexported) {
             throw new IllegalStateException("Already unexported!");
@@ -236,7 +250,9 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         if (interfaceName == null || interfaceName.length() == 0) {
             throw new IllegalStateException("<dubbo:service interface=\"\" /> interface not allow null!");
         }
+        // 从环境变量和配置中获取值并且填充到ProviderConfig里面
         checkDefault();
+        //从providerConfig中，读取applicationConfig、module、registries、moniter、protocols配置对象
         if (provider != null) {
             if (application == null) {
                 application = provider.getApplication();
@@ -254,6 +270,8 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 protocols = provider.getProtocols();
             }
         }
+
+        // 从moduleConfig中读取registries、monitor配置对象
         if (module != null) {
             if (registries == null) {
                 registries = module.getRegistries();
@@ -262,6 +280,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 monitor = module.getMonitor();
             }
         }
+        //从 ApplicationConfig 对象中，读取 registries、monitor 配置对象。
         if (application != null) {
             if (registries == null) {
                 registries = application.getRegistries();
@@ -270,19 +289,23 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 monitor = application.getMonitor();
             }
         }
+        // 泛化接口的实现
         if (ref instanceof GenericService) {
             interfaceClass = GenericService.class;
             if (StringUtils.isEmpty(generic)) {
                 generic = Boolean.TRUE.toString();
             }
         } else {
+            // 普通接口实现
             try {
                 interfaceClass = Class.forName(interfaceName, true, Thread.currentThread()
                         .getContextClassLoader());
             } catch (ClassNotFoundException e) {
                 throw new IllegalStateException(e.getMessage(), e);
             }
+            //检验接口和本地方法
             checkInterfaceAndMethods(interfaceClass, methods);
+            // 检验指向的service对象
             checkRef();
             generic = Boolean.FALSE.toString();
         }
@@ -314,16 +337,26 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 throw new IllegalStateException("The stub implementation class " + stubClass.getName() + " not implement interface " + interfaceName);
             }
         }
+        //校验 ApplicationConfig 配置
         checkApplication();
+        // 校验 RegistryConfig 配置。
         checkRegistry();
+        //ProtocolConfig 配置数组
         checkProtocol();
+        // 读取环境变量和 properties 配置到 ServiceConfig 对象
         appendProperties(this);
+
+        // 校验 Stub 和 Mock 相关的配置
         checkStub(interfaceClass);
         checkMock(interfaceClass);
         if (path == null || path.length() == 0) {
             path = interfaceName;
         }
+        //暴露url
         doExportUrls();
+
+        //TODO 不知道干嘛的
+
         ProviderModel providerModel = new ProviderModel(getUniqueServiceName(), this, ref);
         ApplicationModel.initProviderModel(getUniqueServiceName(), providerModel);
     }
@@ -368,6 +401,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         }
     }
 
+    // 暴露服务URL
     private void doExportUrlsFor1Protocol(ProtocolConfig protocolConfig, List<URL> registryURLs) {
         String name = protocolConfig.getName();
         if (name == null || name.length() == 0) {

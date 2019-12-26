@@ -69,6 +69,7 @@ public class GenericServiceTest {
                 return null;
             }
         });
+
         service.export();
         try {
             ReferenceConfig<DemoService> reference = new ReferenceConfig<DemoService>();

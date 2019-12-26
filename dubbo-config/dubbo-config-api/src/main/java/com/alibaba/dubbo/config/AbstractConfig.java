@@ -133,6 +133,7 @@ public abstract class AbstractConfig implements Serializable {
         return value;
     }
 
+    // 从环境变量和配置中获取值并且填充到Config里面
     protected static void appendProperties(AbstractConfig config) {
         if (config == null) {
             return;

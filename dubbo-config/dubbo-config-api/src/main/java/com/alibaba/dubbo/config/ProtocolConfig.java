@@ -39,6 +39,9 @@ import java.util.Map;
 /**
  * 协议配置，用于配置提供服务的协议信息，协议由提供者指定，消费者被动接受
  *
+ * 参考
+ * http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-protocol.html
+ *
  */
 public class ProtocolConfig extends AbstractConfig {
 
@@ -56,10 +59,13 @@ public class ProtocolConfig extends AbstractConfig {
     // context path
     private String contextpath;
 
+
     // thread pool
+    //线程池类型，可选：fixed/cached
     private String threadpool;
 
     // thread pool size (fixed size)
+    //服务线程池大小(固定大小)
     private Integer threads;
 
     // IO thread pool size (fixed size)

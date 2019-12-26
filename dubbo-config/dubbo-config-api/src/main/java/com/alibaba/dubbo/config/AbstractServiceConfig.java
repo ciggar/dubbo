@@ -28,6 +28,15 @@ import java.util.List;
  *
  * @export
  */
+
+/**
+ * @Auther ciggar
+ * @Date 2019-12-26
+ * {@See
+ *  http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-service.html
+ *  http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-provider.html
+ * }
+ */
 public abstract class AbstractServiceConfig extends AbstractInterfaceConfig {
 
     private static final long serialVersionUID = 1L;

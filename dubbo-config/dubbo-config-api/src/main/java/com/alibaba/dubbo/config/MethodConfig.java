@@ -36,6 +36,10 @@ import java.util.List;
  * @Date 2019-12-20
  *
  * dubbo方法配置
+ * 方法级配置。对应的配置类： org.apache.dubbo.config.MethodConfig。
+ * 同时该标签为 <dubbo:service> 或 <dubbo:reference> 的子标签，用于控制到方法级。
+ *
+ * http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-method.html
  *
  */
 public class MethodConfig extends AbstractMethodConfig {
@@ -58,6 +62,7 @@ public class MethodConfig extends AbstractMethodConfig {
     private Boolean reliable;
 
     // thread limits for method invocations
+    //每服务每方法最大使用线程数限制- -，此属性只在<dubbo:method>作为<dubbo:service>子标签时有效
     private Integer executes;
 
     // if it's deprecated

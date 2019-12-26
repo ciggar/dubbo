@@ -46,6 +46,9 @@ import java.util.Map;
 /**
  * AbstractDefaultConfig
  *
+ * 抽象接口配置类。
+ * 具体属性的解释，需要寻找在 《Dubbo 用户指南 —— dubbo:service》 或 《Dubbo 用户指南 —— dubbo:reference》 文档。
+ *
  * @export
  */
 public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
@@ -62,15 +65,19 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     protected MonitorConfig monitor;
 
     // proxy type
+    //生成动态代理方式 生成动态代理方式，可选：jdk/javassist
     protected String proxy;
 
     // cluster type
+    //集群方式 failover/failfast/failsafe/failback/forking
     protected String cluster;
 
     // filter
+    // 服务消费方远程调用过程拦截器名称，多个名称用逗号分隔
     protected String filter;
 
     // listener
+    // 服务消费方引用服务监听器名称，多个名称用逗号分隔
     protected String listener;
 
     // owner
@@ -104,6 +111,10 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     // the scope for referring/exporting a service, if it's local, it means searching in current JVM only.
     private String scope;
 
+    /**
+     * 校验RegistryConfig配置数组
+     * 实际上，该方法会初始化RegistryConfig的配置属性
+     */
     protected void checkRegistry() {
         // for backward compatibility
         if (registries == null || registries.isEmpty()) {
@@ -132,9 +143,14 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         }
     }
 
+    /**
+     * 校验ApplicationConfig配置
+     * 实际上，该方法会初始化ApplicationConfig的配置属性
+     */
     @SuppressWarnings("deprecation")
     protected void checkApplication() {
-        // for backward compatibility
+        // for backward compatibility  向后兼容
+        // 初始化ApplicationConfig
         if (application == null) {
             String applicationName = ConfigUtils.getProperty("dubbo.application.name");
             if (applicationName != null && applicationName.length() > 0) {
@@ -147,6 +163,9 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         }
         appendProperties(application);
 
+        /**
+         * 初始化优雅停机的超时时长
+         */
         String wait = ConfigUtils.getProperty(Constants.SHUTDOWN_WAIT_KEY);
         if (wait != null && wait.trim().length() > 0) {
             System.setProperty(Constants.SHUTDOWN_WAIT_KEY, wait.trim());
@@ -257,6 +276,12 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         return null;
     }
 
+    /**
+     * 1、 接口类非空，并是接口
+     * 2、 方法在接口中已定义
+     * @param interfaceClass
+     * @param methods
+     */
     protected void checkInterfaceAndMethods(Class<?> interfaceClass, List<MethodConfig> methods) {
         // interface cannot be null
         if (interfaceClass == null) {
