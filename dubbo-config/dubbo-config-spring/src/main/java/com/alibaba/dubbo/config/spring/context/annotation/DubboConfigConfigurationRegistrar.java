@@ -34,6 +34,8 @@ import static com.alibaba.dubbo.config.spring.util.AnnotatedBeanDefinitionRegist
  * @see DubboConfigConfiguration
  * @see Ordered
  * @since 2.5.8
+ *
+ * dubbo 注解配置
  */
 public class DubboConfigConfigurationRegistrar implements ImportBeanDefinitionRegistrar {
 
