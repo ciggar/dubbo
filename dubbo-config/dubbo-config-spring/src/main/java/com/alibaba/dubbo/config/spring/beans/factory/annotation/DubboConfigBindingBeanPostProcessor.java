@@ -48,6 +48,13 @@ import static org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncl
  * @since 2.5.8
  */
 
+/**
+ * @Auther ciggar
+ * @Date 2019-12-30
+ *
+ * 这个类是初始化dubbo配置的时候，给配置属性赋值
+ *
+ */
 public class DubboConfigBindingBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware, InitializingBean {
 
     private final Log log = LogFactory.getLog(getClass());

@@ -45,6 +45,17 @@ import org.springframework.context.annotation.Configuration;
 public class DubboConfigConfiguration {
 
     /**
+     *
+     * 主要就是两个内部类
+     * 前者 Single ，其上的注解，prefix 都是单数。
+     * 后者 Multiple ，其上的注解，prefix 都是复数，且有 multiple = true 。
+     *
+     * 那么会有什么效果呢？我们继续往 「4.3 @@EnableDubboConfigBindings」 和 「4.4 @@EnableDubboConfigBinding」 看。
+      */
+
+
+
+    /**
      * Single Dubbo {@link AbstractConfig Config} Bean Binding
      */
     @EnableDubboConfigBindings({
